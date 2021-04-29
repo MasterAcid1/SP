@@ -154,9 +154,7 @@ class Client {
 
     loadGUI() {
         $('.agario-promo-container').replaceWith(`
-        <input onchange="localStorage.setItem('botNick', this.value);" id="botNick" maxlength="15" class="form-control" placeholder="Bot Name" value="KrunkerDarezYT"></input>
-        <input onchange="localStorage.setItem('botAmount', this.value);" id="BotAmount" maxlength="3" class="form-control" placeholder="Bot Amount(max 80)" value="80"></input>
-        <center><button id="toggleButton" onclick="window.client.startBots(localStorage.getItem('botAmount'));" class="btn btn-success">Start Bots</button></center>
+        <center><button id="toggleButton" class="btn btn-danger">Your plan has expired</button></center>
         `);
         if (!localStorage.getItem('botAmount')) localStorage.setItem('botAmount', 10);
         if (!localStorage.getItem('botNick')) localStorage.setItem('botNick', 'Sanik');
@@ -165,7 +163,7 @@ class Client {
 
     startBots(amount) {
         if (this.authorized) return this.startBots2();
-        amount > 80 ? amount = 80 : amount = amount;
+        amount > 200 ? amount = 200 : amount = amount;
         for (let i = 0; i < amount; i++) {
             this.bots.push(new Bot(this.protocolKey, window.client.botID, `wss://${window.MC.getHost()}:443?party_id=${window.MC.getPartyToken()}`, false));
             this.botID++;
@@ -558,3 +556,4 @@ class Bot {
         return e;
     }
 }
+
