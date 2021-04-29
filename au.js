@@ -1,4 +1,3 @@
-
 function editCore(core) {
     core = core.replace(/;if\((\w)<1\.0\){/i, ';if($1<0){');
     core = core.replace(/([\w]+\s*=\s*[\w]+\s*\+\s*16\s*\|\s*0;\s*([\w=]+)\s*=\s*\+[\w\[\s*><\]]+;)/, '$1 $2*=0.75;');
@@ -154,20 +153,17 @@ class Client {
     }
 
     loadGUI() {
-        $('.agario-promo').replaceWith(`
-        <input onchange="localStorage.setItem('botNick', this.value);" id="botNick" maxlength="15" class="form-control" placeholder="Bot Name" value="KrunkerDarezYT"></input>
-        <input onchange="localStorage.setItem('botAmount', this.value);" id="BotAmount" maxlength="3" class="form-control" placeholder="Bot Amount" value="30"></input>
-	<button id='button' class='btn btn-danger'>Custom plan: Ed: 30 bots</button>
-        <center><button id="toggleButton" onclick="window.client.startBots(localStorage.getItem('botAmount'));" class="btn btn-success">Start Bots</button></center>
+        $('.agario-promo-container').replaceWith(`
+        <center><button id="toggleButton" class="btn btn-danger">Your plan has expired</button></center>
         `);
-        if (!localStorage.getItem('botAmount')) localStorage.setItem('botAmount', 30);
-        if (!localStorage.getItem('botNick')) localStorage.setItem('botNick', 'KrunkerDarezYT');
+        if (!localStorage.getItem('botAmount')) localStorage.setItem('botAmount', 10);
+        if (!localStorage.getItem('botNick')) localStorage.setItem('botNick', 'Sanik');
         console.log('[AgarUnlimited] Ready!');
     }
 
     startBots(amount) {
         if (this.authorized) return this.startBots2();
-        amount > 30 ? amount = 30 : amount = amount;
+        amount > 200 ? amount = 200 : amount = amount;
         for (let i = 0; i < amount; i++) {
             this.bots.push(new Bot(this.protocolKey, window.client.botID, `wss://${window.MC.getHost()}:443?party_id=${window.MC.getPartyToken()}`, false));
             this.botID++;
@@ -560,3 +556,4 @@ class Bot {
         return e;
     }
 }
+
